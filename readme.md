@@ -1,3 +1,14 @@
+# REST API Automation
+
+This project goes over automation testing for different endpoints of the app [todoist](https://todoist.com/)
+
+- Scenarios evaluated are:
+  - Creating a project
+  - Updating Created Projected
+  - Creating/Updating project with incorrect credentials
+
+* Validation is made based on response data type, code, values etc.
+
 ## Tech Stack
 
 **Libraries:** chai, mocha, supertest, get-nested-value, mochawesome, faker.js
@@ -12,6 +23,21 @@ Install with npm
   npm install
 ```
 
+## Setting up authentication
+
+Create a file in the root directory named `config.js` and insert:
+
+```bash
+  export const config ={
+    PROD: {
+      host:"https://api.todoist.com/rest/v2",
+      apiKey:"your-API-Key"
+      },
+  }
+
+  global.executionVariables = {};
+```
+
 ## Running Tests
 
 To run tests, run the following command
@@ -22,6 +48,7 @@ To run tests, run the following command
 ```
 
 #### Execution report can be found at /mochawesome-report/mochawesome.html
+
 #### Execution report for discord can be sent to your own bot but you need to change the webHookURL value at discord-reporter.cjs
 
 ## Structure of each section:
