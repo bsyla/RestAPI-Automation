@@ -1,0 +1,7 @@
+# Dependency directories
+node_modules/
+
+# Report
+reports/
+mochawesome-report/
+config.js
