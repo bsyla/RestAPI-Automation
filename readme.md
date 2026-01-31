@@ -102,28 +102,10 @@ Do not commit `config.js` or `.env`; both are gitignored.
 
 - **Workflow:** [`.github/workflows/ci.yml`](.github/workflows/ci.yml)  
 - **Triggers:** push / PR on `main` or `master`  
-- **Environment:** `prod` (optional; workflow also uses repository secrets)  
+- **Environment:** `prod` (so environment secrets are available)  
 - **Steps:** Checkout → Node 20 → `npm ci` → copy `config.example.js` to `config.js` → `npm run test:all`  
+- **Secrets:** `TODOIST_API_KEY` (required); `TODOIST_BASE_URL` (optional) in the `prod` environment  
 - **Artifact:** Mochawesome report uploaded for 7 days  
-
-### Making secrets available for PRs (and not only main)
-
-To have integration tests run on **every** push and **every PR from branches in this repo** (not only on `main`), add the secrets at **repository** level so they are available to all workflow runs:
-
-1. In the repo: **Settings → Secrets and variables → Actions**.
-2. Under **Repository secrets**, add:
-   - `TODOIST_API_KEY` (required) – your Todoist API token.
-   - `TODOIST_BASE_URL` (optional) – default is `https://api.todoist.com/rest/v2`.
-
-Repository secrets are available to:
-- Push to any branch (e.g. `main`, `feature/xyz`).
-- Pull requests from **branches in this repo** (e.g. `feature/xyz` → `main`).
-
-They are **not** available to PRs opened from **forks** (GitHub does not expose secrets to fork PRs for security).
-
-If you use the **`prod` environment** as well, you can keep `TODOIST_*` there; the workflow reads from both. If the `prod` environment has **Required reviewers** or **Deployment branch** rules, ensure they allow the branches you use for PRs, or rely on repository secrets so PRs don’t depend on environment approval.  
-
-**If CI returns 403 Forbidden:** The workflow sends a `User-Agent` header; ensure your token is a **full-access** personal token from [Todoist → Settings → Integrations](https://app.todoist.com/app/settings/integrations). If 403 persists, Todoist may restrict some IPs or the deprecated REST v2 API; try the token locally to confirm it works.
 
 ---
 
