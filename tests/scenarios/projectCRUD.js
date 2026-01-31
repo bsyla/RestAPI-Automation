@@ -1,5 +1,5 @@
 import {
-  createProject,
+  createProjectSetup,
   getProject,
   updateCreatedProject,
   deleteCreatedProject,
@@ -8,20 +8,20 @@ import {
   getAllProjects,
 } from "../steps/project.js";
 
-before(async () => {
+before(async function () {
+  global.executionVariables = {};
+  await createProjectSetup(this);
+});
+
+describe("[NEGATIVE]", () => {
   createProjectWithoutName();
-  createProject();
   updateProjectWithIncorrectColour();
+});
+
+describe("[POSITIVE]", () => {
   getProject();
+  updateCreatedProject();
+  getProject();
+  getAllProjects();
+  deleteCreatedProject();
 });
-
-it("Project Crud Test Set(Positive And Negative)", () => {
-  describe("[POSITIVE]", () => {
-    updateCreatedProject();
-    getProject();
-    getAllProjects();
-    deleteCreatedProject();
-  });
-});
-
-//seperate negative&positives into different files

@@ -1,24 +1,28 @@
 import { generateCreateProjectRequestBody } from "../utils/generateRequestBody/generateCredentials.js";
 import { request } from "../utils/requests.js";
 
+/** Setup-only: creates a project and stores id/name/color in global.executionVariables. Use in before() hook. */
+export async function createProjectSetup(context) {
+  const requestBody = await generateCreateProjectRequestBody();
+  await request(context, "POST", "/projects", requestBody, true, {
+    statusCode: 200,
+    expectedValues: [{ path: "name", value: requestBody.name }],
+    executionVariables: [
+      { path: "id", name: "projectID" },
+      { path: "name", name: "projectName" },
+      { path: "color", name: "projectColor" },
+    ],
+    expectedTypes: [
+      { path: "id", type: "string" },
+      { path: "name", type: "string" },
+      { path: "color", type: "string" },
+    ],
+  });
+}
+
 export async function createProject() {
   it("Create Project", async function () {
-    const requestBody = await generateCreateProjectRequestBody();
-
-    await request(this, "POST", "/projects", requestBody, true, {
-      statusCode: 200,
-      expectedValues: [{ path: "name", value: requestBody.name }],
-      executionVariables: [
-        { path: "id", name: "projectID" },
-        { path: "name", name: "projectName" },
-        { path: "color", name: "projectColor" },
-      ],
-      expectedTypes: [
-        { path: "id", type: "string" },
-        { path: "name", type: "string" },
-        { path: "color", type: "string" },
-      ],
-    });
+    await createProjectSetup(this);
   });
 }
 
@@ -35,12 +39,8 @@ export async function updateCreatedProject() {
       {
         statusCode: 200,
         expectedValues: [
-          {
-            path: "name",
-            value: requestBody.name,
-            path: "color",
-            value: requestBody.color,
-          },
+          { path: "name", value: requestBody.name },
+          { path: "color", value: requestBody.color },
         ],
         expectedTypes: [
           { path: "id", type: "string" },
@@ -58,7 +58,7 @@ export async function updateCreatedProject() {
 }
 
 export async function getProject() {
-  it.only("Get project", async function () {
+  it("Get project", async function () {
     await request(
       this,
       "GET",
@@ -68,14 +68,9 @@ export async function getProject() {
       {
         statusCode: 200,
         expectedValues: [
-          {
-            path: "id",
-            value: `${global.executionVariables["projectID"]}`,
-            path: "name",
-            value: `${global.executionVariables["projectName"]}`,
-            path: "color",
-            value: `${global.executionVariables["projectColor"]}`,
-          },
+          { path: "id", value: `${global.executionVariables["projectID"]}` },
+          { path: "name", value: `${global.executionVariables["projectName"]}` },
+          { path: "color", value: `${global.executionVariables["projectColor"]}` },
         ],
         expectedTypes: [
           { path: "id", type: "string" },

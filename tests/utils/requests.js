@@ -127,10 +127,14 @@ async function validateStatusCode(
       response,
       requestBody
     );
+    const hint =
+      actual === 401
+        ? " Todoist returned 401 Unauthorized — check that TODOIST_API_KEY in .env is valid (https://app.todoist.com/app/settings/integrations)."
+        : "";
     assert.fail(
       error.actual,
       error.expected,
-      `Actual is ${error.actual}, but expected was ${error.expected}`
+      `Actual is ${error.actual}, but expected was ${error.expected}.${hint}`
     );
   }
 }
@@ -177,23 +181,27 @@ async function validateFieldsDontExists(
   response,
   requestBody
 ) {
-  try {
-    expect(fields).to.be.undefined;
-  } catch (error) {
-    addRequestInfoToReport(
-      context,
-      method,
-      path,
-      headers,
-      response,
-      requestBody
-    );
-    assert.fail(
-      error.actual,
-      error.expected,
-      `${fields} field is present in body`
-    );
-  }
+  if (!Array.isArray(fields) || fields.length === 0) return;
+  fields.forEach((fieldPath) => {
+    try {
+      expect(getNestedValue(fieldPath, body), `${fieldPath} should be absent in body`).to.be.undefined;
+    } catch (error) {
+      addRequestInfoToReport(
+        context,
+        method,
+        path,
+        headers,
+        response,
+        requestBody
+      );
+      const actual = getNestedValue(fieldPath, body);
+      assert.fail(
+        actual,
+        undefined,
+        `${fieldPath} should not be present in body but was ${JSON.stringify(actual)}`
+      );
+    }
+  });
 }
 
 //[{path: 'user', type: 'string'}, {path: '_id', type: 'string'}, {path: 'amount', type: 'number'}]
@@ -379,7 +387,7 @@ async function performValidation(
   if (asserts.notExpectedFields) {
     await validateFieldsDontExists(
       responseBody,
-      asserts.expectedFields,
+      asserts.notExpectedFields,
       context,
       method,
       path,
@@ -427,6 +435,7 @@ async function performValidation(
       path,
       headers,
       response,
+      body,
       asserts.expectedValuesInArrayOfObjects.idKey,
       asserts.expectedValuesInArrayOfObjects.value
     );

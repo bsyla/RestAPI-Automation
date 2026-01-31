@@ -1,4 +1,6 @@
-import accountRequestBody from "../../data/projects/create_project.json" assert { type: "json" };
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const accountRequestBody = require("../../data/projects/create_project.json");
 import { faker } from "@faker-js/faker";
 
 export async function generateCreateProjectRequestBody() {
@@ -24,9 +26,8 @@ export async function generateCreateProjectRequestBody() {
     "grey",
     "taupe",
   ];
-  accountRequestBody.name = faker.airline.airline().name;
-  accountRequestBody.color =
-    color_palete[Math.floor(Math.random() * color_palete.length)];
-
-  return accountRequestBody;
+  const body = { ...accountRequestBody };
+  body.name = faker.airline.airline().name;
+  body.color = color_palete[Math.floor(Math.random() * color_palete.length)];
+  return body;
 }

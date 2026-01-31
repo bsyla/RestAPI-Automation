@@ -1,0 +1,40 @@
+name: API Tests
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Use env-based config
+        run: cp config.example.js config.js
+
+      - name: Run API tests (Projects + Tasks)
+        run: npm run test:all
+        env:
+          TODOIST_API_KEY: ${{ secrets.TODOIST_API_KEY }}
+          TODOIST_BASE_URL: ${{ secrets.TODOIST_BASE_URL || 'https://api.todoist.com/rest/v2' }}
+
+      - name: Upload mochawesome report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mochawesome-report
+          path: mochawesome-report/
+          retention-days: 7

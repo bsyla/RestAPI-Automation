@@ -1,7 +1,10 @@
-# Dependency directories
+# Dependencies
 node_modules/
 
-# Report
+# Reports
 reports/
 mochawesome-report/
+
+# Secrets 
 config.js
+.env
