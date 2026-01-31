@@ -1,0 +1,186 @@
+﻿Diagnose log at 2026-01-31T21:07:19Z
+
+AppPath: /usr/local/bin/git-credential-manager
+InstallDir: /usr/local/share/gcm-core/
+Version: 2.7.0+d1dd8a4ded75a2b1faae653157ac1699609442ad
+
+------------
+Diagnostic: Environment
+Skipped: False
+Success: True
+Exception: None
+Log:
+OSType: macOS
+OSVersion: 26.2.0
+Reading environment variables... OK
+ Variables:
+COLORTERM=truecolor
+XPC_SERVICE_NAME=0
+TMPDIR=/var/folders/fd/g4tfl95s4_744g_k835k0flc0000gn/T/
+WARP_HONOR_PS1=0
+RUBYOPT=
+WARP_USE_SSH_WRAPPER=1
+SSH_SOCKET_DIR=~/.ssh
+GEM_PATH=/Users/bjornisyla/.gem/ruby/3.2.2:/Users/bjornisyla/.rubies/ruby-3.2.2/lib/ruby/gems/3.2.0
+FNM_LOGLEVEL=info
+SECURITYSESSIONID=186b6
+WARP_IS_LOCAL_SHELL_SESSION=1
+SHLVL=2
+INFOPATH=/opt/homebrew/share/info:
+LC_CTYPE=UTF-8
+GEM_ROOT=/Users/bjornisyla/.rubies/ruby-3.2.2/lib/ruby/gems/3.2.0
+NVM_BIN=/Users/bjornisyla/.nvm/versions/node/v20.19.5/bin
+FNM_VERSION_FILE_STRATEGY=local
+TERM_PROGRAM_VERSION=v0.2026.01.28.08.14.stable_04
+RUBY_VERSION=3.2.2
+HOMEBREW_PREFIX=/opt/homebrew
+FNM_RESOLVE_ENGINES=true
+LaunchInstanceID=B816ED14-DE94-4A67-8EBD-52A2989C1090
+FNM_DIR=/Users/bjornisyla/Library/Application Support/fnm
+MANPATH=/Users/bjornisyla/.nvm/versions/node/v20.19.5/share/man:/opt/local/share/man:
+FNM_ARCH=arm64
+USER=bjornisyla
+LOGNAME=bjornisyla
+LANG=C.UTF-8
+FNM_NODE_DIST_MIRROR=https://nodejs.org/dist
+RUBY_ROOT=/Users/bjornisyla/.rubies/ruby-3.2.2
+HOME=/Users/bjornisyla
+PATH=/Users/bjornisyla/Library/Application Support/fnm/node-versions/v24.11.1/installation/bin:/Users/bjornisyla/.local/state/fnm_multishells/71237_1769893521935/bin:/Users/bjornisyla/Library/Application Support/fnm:/Users/bjornisyla/.nvm/versions/node/v20.19.5/bin:/Users/bjornisyla/.gem/ruby/3.2.2/bin:/Users/bjornisyla/.rubies/ruby-3.2.2/lib/ruby/gems/3.2.0/bin:/Users/bjornisyla/.rubies/ruby-3.2.2/bin:/opt/local/bin:/opt/local/sbin:/Library/Frameworks/Python.framework/Versions/3.12/bin:/Library/Frameworks/Python.framework/Versions/3.11/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/opt/pmk/env/global/bin:/Library/Apple/usr/bin:/Applications/Wireshark.app/Contents/MacOS:/usr/local/share/dotnet:~/.dotnet/tools:/Users/bjornisyla/Library/Application Support/JetBrains/Toolbox/scripts:/Applications/Warp.app/Contents/Resources/bin
+GEM_HOME=/Users/bjornisyla/.gem/ruby/3.2.2
+FNM_MULTISHELL_PATH=/Users/bjornisyla/.local/state/fnm_multishells/71237_1769893521935
+__CFBundleIdentifier=dev.warp.Warp-Stable
+OLDPWD=/
+NVM_INC=/Users/bjornisyla/.nvm/versions/node/v20.19.5/include/node
+CONDA_CHANGEPS1=false
+TERM_PROGRAM=WarpTerminal
+TERM=xterm-256color
+HOMEBREW_CELLAR=/opt/homebrew/Cellar
+FNM_COREPACK_ENABLED=false
+GIT_TRACE2_PARENT_SID=4d90ccce-de21-480e-96bd-9960b3595095
+HOMEBREW_REPOSITORY=/opt/homebrew
+SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.iMLT7ew9Zj/Listeners
+COMMAND_MODE=unix2003
+PWD=/Users/bjornisyla/DevProjects/RestAPI-Automation
+NVM_DIR=/Users/bjornisyla/.nvm
+SHELL=/bin/zsh
+XPC_FLAGS=0x0
+OSLogRateLimit=64
+_=/usr/local/bin/git-credential-manager
+RUBY_ENGINE=ruby
+__CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
+NVM_CD_FLAGS=-q
+
+
+------------
+Diagnostic: File system
+Skipped: False
+Success: True
+Exception: None
+Log:
+Temporary directory is '/var/folders/fd/g4tfl95s4_744g_k835k0flc0000gn/T/'...
+Checking basic file I/O...
+Writing to temporary file '/var/folders/fd/g4tfl95s4_744g_k835k0flc0000gn/T/1d42488ab119febf21ff7247'... OK
+Reading from temporary file '/var/folders/fd/g4tfl95s4_744g_k835k0flc0000gn/T/1d42488ab119febf21ff7247'... OK
+Deleting temporary file '/var/folders/fd/g4tfl95s4_744g_k835k0flc0000gn/T/1d42488ab119febf21ff7247'... OK
+Testing IFileSystem instance...
+UserHomePath: /Users/bjornisyla
+UserDataDirectoryPath: /Users/bjornisyla/.gcm
+GetCurrentDirectory(): /Users/bjornisyla/DevProjects/RestAPI-Automation
+
+------------
+Diagnostic: Networking
+Skipped: False
+Success: True
+Exception: None
+Log:
+Checking networking and HTTP stack...
+Creating HTTP client... OK
+IsNetworkAvailable: True
+Sending HEAD request to http://example.com...Sending HEAD request to https://example.com... OK
+ OK
+Acquiring free TCP port... OK
+Testing local HTTP loopback connections...
+Creating new HTTP listener for http://localhost:56430/... OK
+Waiting for loopback connection... OK
+Writing response... OK
+Waiting for response data... OK
+Loopback connection data OK
+
+------------
+Diagnostic: Git
+Skipped: False
+Success: True
+Exception: None
+Log:
+Getting Git version... OK
+Git version is '2.50.1 (Apple Git-155)'
+Locating current repository...Git repository at '/Users/bjornisyla/DevProjects/RestAPI-Automation/.git'
+ OK
+Listing all Git configuration... OK
+Git configuration:
+file:/Library/Developer/CommandLineTools/usr/share/git-core/gitconfig	credential.helper=osxkeychain
+file:/Library/Developer/CommandLineTools/usr/share/git-core/gitconfig	init.defaultbranch=main
+file:/Users/bjornisyla/.gitconfig	user.name=Bjorni Syla
+file:/Users/bjornisyla/.gitconfig	user.email=bjornsyla@sanalabs.com
+file:/Users/bjornisyla/.gitconfig	filter.lfs.smudge=git-lfs smudge -- %f
+file:/Users/bjornisyla/.gitconfig	filter.lfs.process=git-lfs filter-process
+file:/Users/bjornisyla/.gitconfig	filter.lfs.required=true
+file:/Users/bjornisyla/.gitconfig	filter.lfs.clean=git-lfs clean -- %f
+file:/Users/bjornisyla/.gitconfig	credential.helper=osxkeychain
+file:/Users/bjornisyla/.gitconfig	credential.helper=
+file:/Users/bjornisyla/.gitconfig	credential.helper=/usr/local/share/gcm-core/git-credential-manager
+file:/Users/bjornisyla/.gitconfig	credential.https://dev.azure.com.usehttppath=true
+file:.git/config	core.repositoryformatversion=0
+file:.git/config	core.filemode=true
+file:.git/config	core.bare=false
+file:.git/config	core.logallrefupdates=true
+file:.git/config	core.ignorecase=true
+file:.git/config	core.precomposeunicode=true
+file:.git/config	lfs.repositoryformatversion=0
+file:.git/config	remote.origin.url=https://github.com/bsyla/RestAPI-Automation.git
+file:.git/config	remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+file:.git/config	branch.main.remote=origin
+file:.git/config	branch.main.merge=refs/heads/main
+file:.git/config	branch.main.vscode-merge-base=origin/main
+file:.git/config	branch.feature/expand-api-automation.vscode-merge-base=origin/main
+file:.git/config	user.name=Bjorni Syla
+file:.git/config	user.email=bjorn.syla@gmail.com
+
+
+------------
+Diagnostic: Credential storage
+Skipped: False
+Success: True
+Exception: None
+Log:
+ICredentialStore instance is of type: CredentialStore
+Writing test credential... OK
+Reading test credential... OK
+Deleting test credential... OK
+
+------------
+Diagnostic: Microsoft authentication (AAD/MSA)
+Skipped: False
+Success: True
+Exception: None
+Log:
+Broker is not enabled.
+Flow type is: Auto
+Gathering MSAL token cache data... OK
+CacheDirectory: /Users/bjornisyla/.local/.IdentityService
+CacheFileName: msal.cache
+CacheFilePath: /Users/bjornisyla/.local/.IdentityService/msal.cache
+MacKeyChainAccountName: MSALCache
+MacKeyChainServiceName: Microsoft.Developer.IdentityService
+Creating cache helper... OK
+Verifying MSAL token cache persistence... OK
+
+------------
+Diagnostic: GitHub API
+Skipped: False
+Success: True
+Exception: None
+Log:
+Using 'https://github.com/' as API target.
+Querying '/meta' endpoint... OK
+

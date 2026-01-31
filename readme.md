@@ -1,6 +1,6 @@
 # REST API Automation
 
-[![API Tests](https://github.com/bjornisyla/RestAPI-Automation/actions/workflows/ci.yml/badge.svg)](https://github.com/bjornisyla/RestAPI-Automation/actions/workflows/ci.yml)
+[![API Tests](https://github.com/bsyla/RestAPI-Automation/actions/workflows/ci.yml/badge.svg)](https://github.com/bsyla/RestAPI-Automation/actions/workflows/ci.yml)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](https://nodejs.org/)
 [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
 
