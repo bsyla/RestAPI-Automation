@@ -14,10 +14,11 @@ export async function request(
   host = undefined,
   customHeaders = undefined
 ) {
-  //Supertest is a library for testing HTTP APIs. In this line we store it in the variable and
-  //provide as an argument either the defined host or the one we have defined in our config file under Prod
-  //if host is undeclared/undefined etc the one we have declared under config.js will be used
-  const requestST = host ? supertest(host) : supertest(config.PROD.host);
+  // Build full URL so path is not resolved against base (e.g. /projects would replace /rest/v2 and 404).
+  const base = (host || config.PROD.host).trim().replace(/\/$/, "");
+  const pathPart = path.startsWith("/") ? path.slice(1) : path;
+  const fullUrl = `${base}/${pathPart}`;
+  const requestST = supertest(fullUrl);
 
   const headers = customHeaders
     ? customHeaders
@@ -33,9 +34,12 @@ export async function request(
   let response = null;
   let responseBody;
 
+  // URL is already full; use empty path so we hit fullUrl exactly.
+  const emptyPath = "";
+
   switch (method) {
     case "GET":
-      response = await requestST.get(path).set(headers);
+      response = await requestST.get(emptyPath).set(headers);
       responseBody = response.body;
 
       await performValidation(
@@ -51,7 +55,7 @@ export async function request(
 
       break;
     case "POST":
-      response = await requestST.post(path).send(body).set(headers);
+      response = await requestST.post(emptyPath).send(body).set(headers);
       responseBody = response.body;
 
       await performValidation(
@@ -67,7 +71,7 @@ export async function request(
 
       break;
     case "PATCH":
-      response = await requestST.patch(path).send(body).set(headers);
+      response = await requestST.patch(emptyPath).send(body).set(headers);
       responseBody = response.body;
 
       await performValidation(
@@ -83,7 +87,7 @@ export async function request(
 
       break;
     case "DELETE":
-      response = await requestST.delete(path).send(body).set(headers);
+      response = await requestST.delete(emptyPath).send(body).set(headers);
       responseBody = response.body;
 
       await performValidation(
