@@ -24,7 +24,8 @@ export async function request(
     ? customHeaders
     : {
         "Content-Type": "application/json",
-        Accept: "*/*",
+        Accept: "application/json",
+        "User-Agent": "RestAPI-Automation/1.0 (Todoist REST v2 tests)",
         Connection: "keep-alive",
         ...(auth && {
           Authorization: `Bearer ${config.PROD.apiKey}`,
@@ -131,10 +132,13 @@ async function validateStatusCode(
       response,
       requestBody
     );
-    const hint =
-      actual === 401
-        ? " Todoist returned 401 Unauthorized — check that TODOIST_API_KEY in .env is valid (https://app.todoist.com/app/settings/integrations)."
-        : "";
+    let hint = "";
+    if (actual === 401)
+      hint =
+        " Todoist returned 401 Unauthorized — check that TODOIST_API_KEY is valid (https://app.todoist.com/app/settings/integrations).";
+    else if (actual === 403)
+      hint =
+        " Todoist returned 403 Forbidden — token may lack scope, or API may restrict CI IPs; ensure token is a full-access personal token from Integrations and requests include User-Agent.";
     assert.fail(
       error.actual,
       error.expected,
