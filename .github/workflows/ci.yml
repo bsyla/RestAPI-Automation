@@ -4,6 +4,9 @@ on:
   push:
     branches: ["**"]
   pull_request:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
 
 concurrency:
   group: api-tests-${{ github.ref }}
@@ -25,6 +28,10 @@ jobs:
       RETRY_MAX: ${{ vars.RETRY_MAX || '2' }}
       RETRY_DELAY_MS: ${{ vars.RETRY_DELAY_MS || '300' }}
       REQUEST_TIMEOUT_MS: ${{ vars.REQUEST_TIMEOUT_MS || '10000' }}
+      QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
+      QASE_PROJECT_CODE: ${{ vars.QASE_PROJECT_CODE }}
+      QASE_TEST_RUN_TITLE: ${{ github.workflow }} #${{ github.run_number }} - ${{ github.ref_name }}
+      QASE_TEST_RUN_TAGS: ${{ github.event_name }},${{ github.ref_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,7 +48,7 @@ jobs:
         run: npm ci
 
       - name: Run API tests
-        run: npm test
+        run: npm run test:ci
 
       - name: Upload Mochawesome report
         if: always()
