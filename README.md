@@ -81,6 +81,10 @@ src/
    ```bash
    npm test
    ```
+   For CI-style reporting (Qase + Mochawesome):
+   ```bash
+   npm run test:ci
+   ```
 
 ## Environment configuration
 
@@ -131,6 +135,7 @@ GitHub Actions pipeline:
 - Runs tests
 - Generates Mochawesome reports
 - Uploads report artifacts
+- Runs on a scheduled cadence (hourly)
 
 See `.github/workflows/ci.yml` for details.
 
@@ -141,6 +146,15 @@ environment secret named `TODOIST_API_TOKEN`. Optional environment variables
 (`TODOIST_ENV`, `TODOIST_BASE_URL`, `HTTP_LOG`, `RETRY_MAX`,
 `RETRY_DELAY_MS`, `REQUEST_TIMEOUT_MS`) can be set as environment or repository
 variables to tune execution without code changes.
+
+**Qase reporting**
+
+Test results are forwarded to Qase when the following are configured:
+
+- `QASE_API_TOKEN` (secret)
+- `QASE_PROJECT_CODE` (variable or secret)
+- `QASE_TEST_RUN_TITLE` (set by workflow)
+- `QASE_TEST_RUN_TAGS` (set by workflow)
 
 ## Example output
 
