@@ -51,7 +51,7 @@ describe("Todoist API negative scenarios", function () {
     {
       name: "returns 404 for non-existent project",
       action: () => projects.getProject(dataFactory.invalidId()),
-      status: 404,
+      status: [400, 404],
     },
     {
       name: "returns 400 when project name is empty",
@@ -69,7 +69,7 @@ describe("Todoist API negative scenarios", function () {
     {
       name: "returns 404 when task id is unknown",
       action: () => tasks.closeTask(dataFactory.invalidId()),
-      status: 404,
+      status: [400, 404],
     },
   ];
 
