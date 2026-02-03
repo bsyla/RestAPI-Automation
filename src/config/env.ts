@@ -25,7 +25,8 @@ const sanitizeToken = (value: string | undefined) => {
     return undefined;
   }
   const trimmed = value.trim();
-  return trimmed.replace(/^['"]|['"]$/g, "");
+  const unquoted = trimmed.replace(/^['"]|['"]$/g, "");
+  return unquoted.replace(/^bearer\s+/i, "");
 };
 
 const normalizeBaseUrl = (value: string | undefined) => {
