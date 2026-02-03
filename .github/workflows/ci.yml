@@ -5,12 +5,31 @@ on:
     branches: ["**"]
   pull_request:
 
+concurrency:
+  group: api-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   api-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: PROD
+    env:
+      TODOIST_API_TOKEN: ${{ secrets.TODOIST_API_TOKEN }}
+      TODOIST_ENV: ${{ vars.TODOIST_ENV || 'prod' }}
+      TODOIST_BASE_URL: ${{ vars.TODOIST_BASE_URL || '' }}
+      HTTP_LOG: ${{ vars.HTTP_LOG || 'false' }}
+      RETRY_MAX: ${{ vars.RETRY_MAX || '2' }}
+      RETRY_DELAY_MS: ${{ vars.RETRY_DELAY_MS || '300' }}
+      REQUEST_TIMEOUT_MS: ${{ vars.REQUEST_TIMEOUT_MS || '10000' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -23,9 +42,6 @@ jobs:
 
       - name: Run API tests
         run: npm test
-        env:
-          TODOIST_API_TOKEN: ${{ secrets.TODOIST_API_TOKEN }}
-          TODOIST_ENV: prod
 
       - name: Upload Mochawesome report
         if: always()

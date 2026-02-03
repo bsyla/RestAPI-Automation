@@ -134,6 +134,14 @@ GitHub Actions pipeline:
 
 See `.github/workflows/ci.yml` for details.
 
+**Secrets and variables**
+
+The workflow targets the `PROD` GitHub Environment. Store the token as an
+environment secret named `TODOIST_API_TOKEN`. Optional environment variables
+(`TODOIST_ENV`, `TODOIST_BASE_URL`, `HTTP_LOG`, `RETRY_MAX`,
+`RETRY_DELAY_MS`, `REQUEST_TIMEOUT_MS`) can be set as environment or repository
+variables to tune execution without code changes.
+
 ## Example output
 
 ```
