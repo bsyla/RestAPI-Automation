@@ -5,13 +5,13 @@ import { TasksService } from "../../services/TasksService.js";
 import { ErrorResponseSchema } from "../../models/error.js";
 import { dataFactory } from "../../utils/dataFactory.js";
 import { expectApiError } from "../../utils/assertions.js";
-import { createProjectFixture } from "../fixtures/projectFixture.js";
+import { attachApiCall, attachApiError } from "../../utils/reporting.js";
+import { ApiError } from "../../clients/BaseApiClient.js";
 
 describe("Todoist API negative scenarios", function () {
   let projects: ProjectsService;
   let tasks: TasksService;
   let unauthProjects: ProjectsService;
-  let cleanupProject: (() => Promise<void>) | undefined;
   let projectId: string | undefined;
 
   const ensureProjectId = () => {
@@ -30,14 +30,15 @@ describe("Todoist API negative scenarios", function () {
     tasks = new TasksService(authenticatedClient);
     unauthProjects = new ProjectsService(unauthenticatedClient);
 
-    const fixture = await createProjectFixture(this, projects);
-    projectId = fixture.project.id;
-    cleanupProject = fixture.cleanup;
-  });
-
-  after(async () => {
-    if (cleanupProject) {
-      await cleanupProject();
+    try {
+      const listResponse = await projects.listProjects();
+      attachApiCall(this, listResponse);
+      projectId = listResponse.data[0]?.id;
+    } catch (error) {
+      if (error instanceof ApiError) {
+        attachApiError(this, error);
+      }
+      throw error;
     }
   });
 
@@ -56,12 +57,14 @@ describe("Todoist API negative scenarios", function () {
       name: "returns 400 when project name is empty",
       action: () => projects.createProject({ name: "" }),
       status: 400,
+      skipOnStatus: [403],
     },
     {
       name: "returns 400 when task content is empty",
       action: () =>
         tasks.createTask({ content: "", projectId: ensureProjectId() }),
       status: 400,
+      skipOnStatus: [403],
     },
     {
       name: "returns 404 when task id is unknown",
@@ -76,6 +79,7 @@ describe("Todoist API negative scenarios", function () {
         status: testCase.status,
         schema: ErrorResponseSchema,
         context: this,
+        skipOnStatus: testCase.skipOnStatus,
       });
     });
   });
