@@ -3,7 +3,9 @@ export const buildUrl = (
   path: string,
   query?: Record<string, string | number | boolean | undefined>
 ) => {
-  const url = new URL(path, baseUrl);
+  const normalizedBase = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+  const normalizedPath = path.startsWith("/") ? path.slice(1) : path;
+  const url = new URL(normalizedPath, normalizedBase);
   if (query) {
     Object.entries(query).forEach(([key, value]) => {
       if (value !== undefined) {
