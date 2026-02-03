@@ -1,8 +1,8 @@
 {
-  "reporterEnabled": "mochawesome, ./discord-reporter.cjs",
+  "reporterEnabled": "spec, mochawesome",
   "mochawesomeReporterOptions": {
-    "reportDir": "mochawesome-report",
-    "quite": true,
+    "reportDir": "reports/mochawesome",
+    "quiet": true,
     "overwrite": true,
     "html": true,
     "json": true

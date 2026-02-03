@@ -3,25 +3,26 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "projects-mochawesome": "mocha 'tests/scenarios/projectCRUD.js' --reporter mochawesome --timeout 20000",
-    "projects-discord": "mocha 'tests/scenarios/projectCRUD.js' --reporter mocha-multi-reporters --reporterOptions configFile=config.json --timeout 20000"
+    "test": "npm run test:api",
+    "test:api": "tsx ./node_modules/mocha/bin/_mocha \"src/tests/**/*.spec.ts\" --timeout 30000 --reporter mocha-multi-reporters --reporter-options configFile=config.json"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
+    "@types/chai": "^5.0.1",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^22.10.5",
     "chai": "^5.1.1",
+    "dotenv": "^16.4.5",
     "mocha": "^10.4.0",
-    "supertest": "^7.0.0"
-  },
-  "dependencies": {
-    "@doist/todoist-api-typescript": "^3.0.3",
-    "express": "^4.19.2",
-    "get-nested-value": "^1.0.3",
     "mocha-multi-reporters": "^1.5.1",
-    "mochawesome": "^7.1.3"
+    "mochawesome": "^7.1.3",
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.5",
+    "zod": "^3.23.8"
   },
+  "dependencies": {},
   "type": "module"
 }

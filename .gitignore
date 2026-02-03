@@ -4,4 +4,8 @@ node_modules/
 # Report
 reports/
 mochawesome-report/
-config.js
+
+# Environment files
+.env
+.env.*
+!.env.example
