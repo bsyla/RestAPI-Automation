@@ -20,10 +20,26 @@ const toPositiveNumber = (value: string | undefined, fallback: number) => {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 };
 
+const sanitizeToken = (value: string | undefined) => {
+  if (!value) {
+    return undefined;
+  }
+  const trimmed = value.trim();
+  return trimmed.replace(/^['"]|['"]$/g, "");
+};
+
+const normalizeBaseUrl = (value: string | undefined) => {
+  if (!value) {
+    return undefined;
+  }
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : undefined;
+};
+
 const config = {
   env,
-  baseUrl: process.env.TODOIST_BASE_URL ?? DEFAULT_BASE_URLS[env],
-  apiToken: process.env.TODOIST_API_TOKEN,
+  baseUrl: normalizeBaseUrl(process.env.TODOIST_BASE_URL) ?? DEFAULT_BASE_URLS[env],
+  apiToken: sanitizeToken(process.env.TODOIST_API_TOKEN),
   httpLog: process.env.HTTP_LOG === "true",
   timeoutMs: toPositiveNumber(process.env.REQUEST_TIMEOUT_MS, 10000),
   retry: {
