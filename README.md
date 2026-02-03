@@ -152,7 +152,7 @@ variables to tune execution without code changes.
 Test results are forwarded to Qase when the following are configured:
 
 - `QASE_API_TOKEN` (secret)
-- `QASE_PROJECT_CODE` (variable)
+- `QASE_PROJECT_CODE` (variable or secret)
 - `QASE_TEST_RUN_TITLE` (set by workflow)
 - `QASE_TEST_RUN_TAGS` (set by workflow)
 

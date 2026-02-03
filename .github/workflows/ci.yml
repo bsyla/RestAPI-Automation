@@ -29,7 +29,7 @@ jobs:
       RETRY_DELAY_MS: ${{ vars.RETRY_DELAY_MS || '300' }}
       REQUEST_TIMEOUT_MS: ${{ vars.REQUEST_TIMEOUT_MS || '10000' }}
       QASE_API_TOKEN: ${{ secrets.QASE_API_TOKEN }}
-      QASE_PROJECT_CODE: ${{ vars.QASE_PROJECT_CODE }}
+      QASE_PROJECT_CODE: ${{ vars.QASE_PROJECT_CODE || secrets.QASE_PROJECT_CODE }}
       QASE_TEST_RUN_TITLE: ${{ github.workflow }} #${{ github.run_number }} - ${{ github.ref_name }}
       QASE_TEST_RUN_TAGS: ${{ github.event_name }},${{ github.ref_name }}
     steps:
